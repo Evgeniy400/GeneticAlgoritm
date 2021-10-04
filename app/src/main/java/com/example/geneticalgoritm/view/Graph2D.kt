@@ -12,7 +12,7 @@ import kotlin.math.sin
 class Graph2D(
     context: Context?,
     private var nodes: Int = 10,
-    private var edges: ArrayList<Triple<Int, Int, Double>> = ArrayList<Triple<Int, Int, Double>>()
+    private var edges: ArrayList<Triple<Int, Int, Double>> = ArrayList()
 ) : View(context) {
     private val painter = Paint()
 

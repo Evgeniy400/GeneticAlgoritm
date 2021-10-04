@@ -19,11 +19,12 @@ class GraphFragment : Fragment() {
 
 //        return inflater.inflate(R.layout.fragment_graph, container, false)
         var tmp = ArrayList<Triple<Int, Int, Double>>()
-        for (i in 0..4)
-            for(j in i+1..5)
+        var nodes = 20
+        for (i in 0..nodes-2)
+            for(j in i+1..nodes-1)
                 tmp.add(Triple(i, j, 0.0))
 
-        return Graph2D(context,6, tmp)
+        return Graph2D(context,nodes, tmp)
 
     }
 
