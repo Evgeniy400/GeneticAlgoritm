@@ -27,7 +27,7 @@ class Graph2D(
         painter.apply {
             isAntiAlias = true
             style = Paint.Style.FILL
-            color = Color.BLACK
+            color = Color.GRAY
         }
 //        canvas?.drawCircle(
 //            (width / 2).toFloat(),
@@ -39,6 +39,21 @@ class Graph2D(
         val R = min(width, height) * 0.4
         val center = PointF((width / 2.0).toFloat(), (height / 2.0).toFloat())
 
+        var tmp = ArrayList<Pair<Int, Int>>()
+        for (i in 0..nodes-2)
+            for(j in i+1..nodes-1)
+                tmp.add(Pair(i, j))
+
+        for (pair in tmp){
+            canvas?.drawLine(
+                (center.x + R * cos(pair.first * 2 * PI / nodes)).toFloat(),
+                (center.y - R * sin(pair.first * 2 * PI / nodes)).toFloat(),
+                (center.x + R * cos(pair.second * 2 * PI / nodes)).toFloat(),
+                (center.y - R * sin(pair.second * 2 * PI / nodes)).toFloat(),
+                painter
+            )
+        }
+        painter.color = Color.RED
         for (pair in edges){
             canvas?.drawLine(
                 (center.x + R * cos(pair.first * 2 * PI / nodes)).toFloat(),
@@ -49,6 +64,7 @@ class Graph2D(
             )
         }
 
+        painter.color = Color.BLACK
 //        for(i in 0 until nodes-1){
 //            for (j in i+1 until nodes) {
 //                canvas?.drawLine(

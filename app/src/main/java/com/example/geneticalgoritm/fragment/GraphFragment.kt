@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.example.geneticalgoritm.R
 import com.example.geneticalgoritm.view.Graph2D
 
-class GraphFragment : Fragment() {
+class GraphFragment(var vertex: Int = 25, var edges: ArrayList<Triple<Int, Int, Double>> = arrayListOf()) : Fragment() {
     private lateinit var field: Graph2D
 
     override fun onCreateView(
@@ -17,14 +17,8 @@ class GraphFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        return inflater.inflate(R.layout.fragment_graph, container, false)
-        var tmp = ArrayList<Triple<Int, Int, Double>>()
-        var nodes = 20
-        for (i in 0..nodes-2)
-            for(j in i+1..nodes-1)
-                tmp.add(Triple(i, j, 0.0))
 
-        return Graph2D(context,nodes, tmp)
+        return Graph2D(context, vertex, edges)
 
     }
 

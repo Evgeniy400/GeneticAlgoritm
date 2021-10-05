@@ -2,4 +2,10 @@
     <string name="app_name">Genetic Algoritm</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vertexCount">Количество вершин в графе (более 2)</string>
+    <string name="populationCount">Количество особей в популяции</string>
+    <string name="generationCount">Количество генераций популяции</string>
+    <string name="crossoverChance">"Шанс кроссовера (от 0 до 1) "</string>
+    <string name="mutationChance">Шанс мутации (от 0 до 1)</string>
+    <string name="settingsButton">Сохранить</string>
 </resources>

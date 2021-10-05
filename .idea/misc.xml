@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DeVeLoPeR/projects/android/GeneticAlgoritm/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/DeVeLoPeR/projects/android/GeneticAlgoritm/app/src/main/res/layout/activity_settings.xml" value="0.25226449275362317" />
+        <entry key="..\:/DeVeLoPeR/projects/android/GeneticAlgoritm/app/src/main/res/layout/fragment_graph.xml" value="0.25416666666666665" />
+        <entry key="..\:/DeVeLoPeR/projects/android/GeneticAlgoritm/app/src/main/res/layout/graph.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/AndroidStudio/GeneticAlgoritm/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/projects/AndroidStudio/GeneticAlgoritm/app/src/main/res/layout/fragment_graph.xml" value="0.28940217391304346" />
         <entry key="..\:/projects/AndroidStudio/GeneticAlgoritm/app/src/main/res/layout/graph.xml" value="0.28940217391304346" />

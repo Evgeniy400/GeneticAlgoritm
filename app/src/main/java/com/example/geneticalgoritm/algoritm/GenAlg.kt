@@ -2,15 +2,65 @@ import kotlin.math.roundToInt
 import kotlin.random.Random
 
 class GenAlg(
-    private var populationCount: Int = 30,
-    private var chromosomeLen: Int = 20,
-    private var crossoverChance: Double = 0.7,
-    private var mutationChance: Double = 0.1,
-    private var maxGenerationCount: Int = 1000
+    newPopulationCount: Int = 30,
+    newChromosomeLen: Int = 10,
+    newCrossoverChance: Double = 0.7,
+    newMutationChance: Double = 0.1,
+    newMaxGenerationCount: Int = 50
 ) {
-    private var population = ArrayList<Genotype>()
+    var population = ArrayList<Genotype>()
+    var populationCount: Int = newPopulationCount
+        set(value) {
+            field = if (value <= 0)
+                1
+            else
+                value
+            reload()
+        }
+    var chromosomeLen: Int = newChromosomeLen
+        set(value) {
+            field = if (value <= 1)
+                2
+            else
+                value
+            reload()
+            graph.clear()
+            for (i in 0..chromosomeLen - 2)
+                for (j in i + 1..chromosomeLen - 1)
+                    graph.add(Triple(i, j, Random.nextInt(1, 100).toDouble()))
+        }
+    var crossoverChance: Double = newCrossoverChance
+        set(value) =
+            if (value < 0.0)
+                field = 0.0
+            else {
+                if (value > 1.0)
+                    field = 1.0
+                else
+                    field = value
+            }
+    var mutationChance: Double = newMutationChance
+        set(value) =
+            if (value < 0.0)
+                field = 0.0
+            else {
+                if (value > 1.0)
+                    field = 1.0
+                else
+                    field = value
+            }
+    var maxGenerationCount: Int = newMaxGenerationCount
+        set(value) {
+            field = if (value <= 0)
+                1
+            else
+                value
+            generation = 0
+        }
+
+
     private var graph = ArrayList<Triple<Int, Int, Double>>()
-    public var generation = 0
+    private var generation = 0
 
 
     init {
@@ -25,33 +75,6 @@ class GenAlg(
 
     }
 
-    public fun setPopulationCount(newPopCount: Int) {
-        populationCount = newPopCount
-        reload()
-    }
-    public fun getPopulation() = population
-
-    public fun setChromosomeLen(newChromLen: Int) {
-        chromosomeLen = newChromLen
-        reload()
-        graph.clear()
-        for (i in 0..chromosomeLen - 2)
-            for (j in i + 1..chromosomeLen - 1)
-                graph.add(Triple(i, j, Random.nextInt(1, 100).toDouble()))
-    }
-
-    public fun setChrossoverChance(newChance: Double) {
-        crossoverChance = newChance
-    }
-
-    public fun setMutationChance(newChance: Double) {
-        mutationChance = newChance
-    }
-
-    public fun setMaxGenerationCount(newMax: Int) {
-        maxGenerationCount = newMax
-        generation = 0
-    }
 
     private fun reload() {
         generation = 0
@@ -145,14 +168,14 @@ class GenAlg(
         while (i < swapArr.size) {
             var tmp = gen[i].crossover(gen[i + 1], crossoverChance)
             newGen.addAll(arrayListOf(Genotype(tmp.first), Genotype(tmp.second)))
-            i+=2
+            i += 2
         }
 
         return newGen
 
     }
 
-    private fun isSolve(): Boolean = generation == maxGenerationCount
+    public fun isSolve(): Boolean = generation == maxGenerationCount
 
     public fun solve(count: Int = 1): List<Genotype> {
         while (!isSolve()) {
@@ -163,11 +186,40 @@ class GenAlg(
     }
 
 
-
-    public fun printGraph(){
+    public fun printGraph() {
         graph.forEach {
             println("${it.first} ⥄ ${it.second}: ${it.third}")
         }
+    }
+
+    public fun getWay(genotype: Genotype): ArrayList<Triple<Int, Int, Double>> {
+        var points = genotype.getChromosome()
+        var ret = ArrayList<Triple<Int, Int, Double>>()
+        points.forEachIndexed { index, item ->
+            if (index != 0) {
+                ret.add(
+                    Triple(
+                        points[index - 1],
+                        item,
+                        graph.find { triple -> ((triple.first == points[index - 1] && triple.second == item)
+                            || (triple.first == item && triple.second == points[index-1])) }!!.third)
+                )
+            }
+        }
+        return ret
+
+
+//        return ArrayList(points.size){
+//            points.forEachIndexed { index, i ->  add(Triple(i, i, 1.0))}
+//        }
+
+//        var sum = 0.0
+//        var chromosome = population[index].getChromosome()
+//        for (i in 1 until chromosomeLen) {
+//            sum += graph.find { triple -> (triple.first == chromosome[i - 1] && triple.second == chromosome[i]) || (triple.first == chromosome[i] && triple.second == chromosome[i - 1]) }!!.third
+//        }
+//        sum += graph.find { triple -> (triple.first == chromosome[0] && triple.second == chromosome.last()) || (triple.first == chromosome.last() && triple.second == chromosome[0]) }!!.third
+//        return 1.0 / sum
     }
 
     class Genotype() {
@@ -228,7 +280,7 @@ class GenAlg(
             var right = ArrayList(another.getChromosome())
             if (Random.nextDouble(0.0, 1.0) < chance) {
                 var indexes = ArrayList<Int>()
-                for (i in 1 until (len * (1 -chance)).roundToInt()) {
+                for (i in 1 until (len * (1 - chance)).roundToInt()) {
                     indexes.add(Random.nextInt(0, len))
                     var tmp = Random.nextInt(0, len)
                     while (indexes.contains(tmp)) {
