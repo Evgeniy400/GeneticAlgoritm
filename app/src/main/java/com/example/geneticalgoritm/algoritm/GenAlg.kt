@@ -2,11 +2,11 @@ import kotlin.math.roundToInt
 import kotlin.random.Random
 
 class GenAlg(
-    newPopulationCount: Int = 30,
-    newChromosomeLen: Int = 10,
+    newPopulationCount: Int = 40,
+    newChromosomeLen: Int = 20,
     newCrossoverChance: Double = 0.7,
     newMutationChance: Double = 0.1,
-    newMaxGenerationCount: Int = 50
+    newMaxGenerationCount: Int = 100
 ) {
     var population = ArrayList<Genotype>()
     var populationCount: Int = newPopulationCount

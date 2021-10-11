@@ -3,7 +3,19 @@ package com.example.geneticalgoritm.model
 import GenAlg
 
 class MainModel {
+    fun reload() {
+        alg = GenAlg(
+            populationCount,
+            chromosomeLen,
+            crossoverChance,
+            mutationChance,
+            generationCount
+        )
+    }
+
     var alg = GenAlg()
+
+
 
     var populationCount: Int = 40
         set(value) = if (value <= 0)
@@ -17,7 +29,7 @@ class MainModel {
         else
             field = value
 
-    var generationCount: Int = 1000
+    var generationCount: Int = 100
         set(value) = if (value <= 0)
             field = 1
         else
